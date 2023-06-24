@@ -2,8 +2,8 @@ artifacts_root: artifacts
 
 data_ingestion:
   root_dir: artifacts/data_ingestion
-  source_URL: https://gitlab.com/surajkarki66/Medileaf_Datasets/-/raw/main/data.zip
-  local_data_file: artifacts/data_ingestion/data.zip
+  source_URL: https://gitlab.com/surajkarki66/Medileaf_Datasets/-/raw/main/dataset_v1.zip
+  local_data_file: artifacts/data_ingestion/dataset_v1.zip
   unzip_dir: artifacts/data_ingestion
 
 prepare_base_model:
@@ -15,3 +15,7 @@ prepare_callbacks:
   root_dir: artifacts/prepare_callbacks
   tensorboard_root_log_dir: artifacts/prepare_callbacks/tensorboard_log_dir
   checkpoint_model_filepath: artifacts/prepare_callbacks/checkpoint_dir/model
+
+training:
+  root_dir: artifacts/training
+  trained_model_path: artifacts/training/model
