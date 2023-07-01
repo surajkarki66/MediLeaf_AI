@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 from box.exceptions import BoxValueError
 
-from Medileaf_AI import logger
+from MediLeaf_AI import logger
 
 
 @ensure_annotations

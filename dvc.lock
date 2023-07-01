@@ -1,0 +1,40 @@
+schema: '2.0'
+stages:
+  prepare_base_model:
+    cmd: python src/MediLeaf_AI/pipeline/stage_02_prepare_base_model.py
+    deps:
+    - path: config/config.yaml
+      md5: dac34f0473359c45a2c05d3f2a91b727
+      size: 765
+    - path: src/MediLeaf_AI/pipeline/stage_02_prepare_base_model.py
+      md5: 782576ced72c0cf824e513232813ed4a
+      size: 984
+    params:
+      params.yaml:
+        CLASSES: 30
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+        INCLUDE_TOP: false
+        LEARNING_RATE: 0.001
+        WEIGHTS: imagenet
+    outs:
+    - path: artifacts/prepare_base_model
+      md5: 8e7aa4dbd6b2abc8665cccd537de4511.dir
+      size: 164079045
+      nfiles: 10
+  data_ingestion:
+    cmd: python src/MediLeaf_AI/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      md5: dac34f0473359c45a2c05d3f2a91b727
+      size: 765
+    - path: src/MediLeaf_AI/pipeline/stage_01_data_ingestion.py
+      md5: 579a0fd9d20cd6fae29185b55f8c6e68
+      size: 901
+    outs:
+    - path: artifacts/data_ingestion/dataset_v1
+      md5: ddef8cb794e4b4c1d9fa88ae15c4145f.dir
+      size: 456077803
+      nfiles: 1835

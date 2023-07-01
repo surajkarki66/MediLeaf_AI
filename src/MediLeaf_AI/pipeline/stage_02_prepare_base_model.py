@@ -1,6 +1,6 @@
-from Medileaf_AI.config.configuration import ConfigurationManager
-from Medileaf_AI.components.prepare_base_model import PrepareBaseModel
-from Medileaf_AI.utils.common import logger
+from MediLeaf_AI.config.configuration import ConfigurationManager
+from MediLeaf_AI.components.prepare_base_model import PrepareBaseModel
+from MediLeaf_AI.utils.common import logger
 
 STAGE_NAME = "Prepare base model"
 

@@ -1,0 +1,55 @@
+stages:
+  data_ingestion:
+    cmd: python src/MediLeaf_AI/pipeline/stage_01_data_ingestion.py
+    deps:
+      - src/MediLeaf_AI/pipeline/stage_01_data_ingestion.py
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion/dataset_v1
+
+
+  prepare_base_model:
+    cmd: python src/MediLeaf_AI/pipeline/stage_02_prepare_base_model.py
+    deps:
+      - src/MediLeaf_AI/pipeline/stage_02_prepare_base_model.py
+      - config/config.yaml
+    params:
+      - IMAGE_SIZE
+      - INCLUDE_TOP
+      - CLASSES
+      - WEIGHTS
+      - LEARNING_RATE
+    outs:
+      - artifacts/prepare_base_model
+
+
+  training:
+    cmd: python src/MediLeaf_AI/pipeline/stage_03_training.py
+    deps:
+      - src/MediLeaf_AI/pipeline/stage_03_training.py
+      - src/MediLeaf_AI/components/prepare_callbacks.py
+      - config/config.yaml
+      - artifacts/data_ingestion/dataset_v1
+      - artifacts/prepare_base_model
+    params:
+      - IMAGE_SIZE
+      - EPOCHS
+      - BATCH_SIZE
+      - AUGMENTATION
+    outs:
+      - artifacts/training/model
+
+
+  evaluation:
+    cmd: python src/MediLeaf_AI/pipeline/stage_04_evaluation.py
+    deps:
+      - src/MediLeaf_AI/pipeline/stage_04_evaluation.py
+      - config/config.yaml
+      - artifacts/data_ingestion/dataset_v1
+      - artifacts/training/model
+    params:
+      - IMAGE_SIZE
+      - BATCH_SIZE
+    metrics:
+    - scores.json:
+        cache: false

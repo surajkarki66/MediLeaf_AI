@@ -2,7 +2,7 @@ import tensorflow as tf
 
 from pathlib import Path
 
-from Medileaf_AI.entity.config_entity import TrainingConfig
+from MediLeaf_AI.entity.config_entity import TrainingConfig
 
 
 class Training:

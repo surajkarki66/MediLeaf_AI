@@ -5,7 +5,7 @@ import logging
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s]: %(message)s:')
 
 
-project_name = "Medileaf_AI"
+project_name = "MediLeaf_AI"
 
 list_of_files = [
     ".github/workflows/.gitkeep",

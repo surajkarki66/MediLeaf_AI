@@ -4,9 +4,9 @@ import zipfile
 
 from pathlib import Path
 
-from Medileaf_AI import logger
-from Medileaf_AI.utils.common import get_size
-from Medileaf_AI.entity.config_entity import DataIngestionConfig
+from MediLeaf_AI import logger
+from MediLeaf_AI.utils.common import get_size
+from MediLeaf_AI.entity.config_entity import DataIngestionConfig
 
 
 class DataIngestion:

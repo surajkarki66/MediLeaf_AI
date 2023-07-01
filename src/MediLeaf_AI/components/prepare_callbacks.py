@@ -3,7 +3,7 @@ import time
 import tensorflow as tf
 
 
-from Medileaf_AI.entity.config_entity import PrepareCallbacksConfig
+from MediLeaf_AI.entity.config_entity import PrepareCallbacksConfig
 
 class PrepareCallback:
     def __init__(self, config: PrepareCallbacksConfig):

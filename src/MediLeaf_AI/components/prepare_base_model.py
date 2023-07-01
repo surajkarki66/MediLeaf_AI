@@ -3,7 +3,7 @@ import tensorflow as tf
 from pathlib import Path
 
 
-from Medileaf_AI.entity.config_entity import PrepareBaseModelConfig
+from MediLeaf_AI.entity.config_entity import PrepareBaseModelConfig
 
 
 class PrepareBaseModel:

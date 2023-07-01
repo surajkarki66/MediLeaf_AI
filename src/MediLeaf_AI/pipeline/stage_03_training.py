@@ -1,7 +1,7 @@
-from Medileaf_AI.config.configuration import ConfigurationManager
-from Medileaf_AI.components.prepare_callbacks import PrepareCallback
-from Medileaf_AI.components.training import Training
-from Medileaf_AI import logger
+from MediLeaf_AI.config.configuration import ConfigurationManager
+from MediLeaf_AI.components.prepare_callbacks import PrepareCallback
+from MediLeaf_AI.components.training import Training
+from MediLeaf_AI import logger
 
 
 
