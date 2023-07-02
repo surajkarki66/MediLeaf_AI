@@ -1,9 +1,11 @@
 import os
+import rembg
 import yaml
 import json
-import joblib
-import base64
+import numpy as np
 
+from rembg.sessions import BaseSession
+from PIL import Image
 from ensure import ensure_annotations
 from box import ConfigBox
 from pathlib import Path
@@ -82,34 +84,6 @@ def load_json(path: Path) -> ConfigBox:
     logger.info(f"json file loaded successfully from: {path}")
     return ConfigBox(content)
 
-
-@ensure_annotations
-def save_bin(data: Any, path: Path):
-    """save binary file
-
-    Args:
-        data (Any): data to be saved as binary
-        path (Path): path to binary file
-    """
-    joblib.dump(value=data, filename=path)
-    logger.info(f"binary file saved at: {path}")
-
-
-@ensure_annotations
-def load_bin(path: Path) -> Any:
-    """load binary data
-
-    Args:
-        path (Path): path to binary file
-
-    Returns:
-        Any: object stored in the file
-    """
-    data = joblib.load(path)
-    logger.info(f"binary file loaded from: {path}")
-    return data
-
-
 @ensure_annotations
 def get_size(path: Path) -> str:
     """get size in KB
@@ -124,13 +98,33 @@ def get_size(path: Path) -> str:
     return f"~ {size_in_kb} KB"
 
 
-def decodeImage(img_string, fileName):
-    img_data = base64.b64decode(img_string)
-    with open(fileName, 'wb') as f:
-        f.write(img_data)
-        f.close()
+def image_to_array(image) -> np.ndarray:
+    image = image.resize((224, 224))
+    image_array = np.array(image)
+    image_array = image_array / 255.0
+    image_array = np.expand_dims(image_array, axis=0).astype("float32")
+
+    return image_array
+
+def add_white_background(session, image, size=None, bgcolor='white') -> Image:
+    if size is not None:
+        image = image.resize(size)
+    else:
+        size = image.size
+    result = Image.new("RGB", size, bgcolor)
+    out = rembg.remove(image, session=session)
+    result.paste(out, mask=out)
+
+    return result
 
 
-def encodeImageIntoBase64(croppedImagePath):
-    with open(croppedImagePath, "rb") as f:
-        return base64.b64encode(f.read())
+def map_predictions_to_species_with_proba(predictions, classes_path) -> list:
+    class_indices = load_json(Path(classes_path))
+    predictions = predictions[0]
+    predicted_class_indices = np.argsort(predictions)[::-1][:3]
+    predicted_classes_with_probs = [
+        {"species": class_indices[str(i)], "probability": float(predictions[i])}
+        for i in predicted_class_indices
+    ]
+
+    return predicted_classes_with_probs

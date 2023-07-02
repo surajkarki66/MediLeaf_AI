@@ -1,0 +1,8 @@
+service: "service:medileaf_service"  
+labels:
+  owner: Suraj
+  stage: dev
+include:
+  - "*.py" 
+python:
+  requirements_txt: "./requirements.txt"

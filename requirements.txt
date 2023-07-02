@@ -1,10 +1,11 @@
 dvc
-python-box==6.0.2
+python-box
 pyYAML
 tqdm
-ensure==1.0.2
-joblib
+ensure
 types-PyYAML
 tensorflow
 Pillow
+bentoml
+rembg
 -e .
