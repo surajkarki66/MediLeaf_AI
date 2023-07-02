@@ -5,7 +5,7 @@ from MediLeaf_AI.utils.common import read_yaml, create_directories
 from MediLeaf_AI.entity.config_entity import (DataIngestionConfig,
                                               PrepareBaseModelConfig,
                                               PrepareCallbacksConfig, TrainingConfig,
-                                              EvaluationConfig)
+                                              EvaluationConfig, DeploymentConfig)
 
 
 class ConfigurationManager:
@@ -100,3 +100,9 @@ class ConfigurationManager:
             params_batch_size=self.params.BATCH_SIZE
         )
         return eval_config
+
+    def get_deployment_config(self) -> DeploymentConfig:
+        deployment_config = DeploymentConfig(path_of_model=Path(
+            "artifacts/training/model"), model_tag="model_v1")
+        
+        return deployment_config

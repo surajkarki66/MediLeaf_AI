@@ -44,3 +44,8 @@ class EvaluationConfig:
     all_params: dict
     params_image_size: list
     params_batch_size: int
+
+@dataclass(frozen=True)
+class DeploymentConfig:
+    path_of_model: Path
+    model_tag: str

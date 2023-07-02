@@ -3,6 +3,7 @@ from MediLeaf_AI.pipeline.stage_01_data_ingestion import DataIngestionTrainingPi
 from MediLeaf_AI.pipeline.stage_02_prepare_base_model import PrepareBaseModelTrainingPipeline
 from MediLeaf_AI.pipeline.stage_03_training import ModelTrainingPipeline
 from MediLeaf_AI.pipeline.stage_04_evaluation import EvaluationPipeline
+from MediLeaf_AI.pipeline.stage_05_deployment import DeploymentPipeline
 
 
 STAGE_NAME = "Data Ingestion stage"
@@ -52,3 +53,18 @@ try:
 except Exception as e:
         logger.exception(e)
         raise e
+
+
+STAGE_NAME = "Deployment stage"
+try:
+   logger.info(f"*******************")
+   logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+   model_evalution = DeploymentPipeline()
+   model_evalution.main()
+   logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+
+except Exception as e:
+        logger.exception(e)
+        raise e
+
+
