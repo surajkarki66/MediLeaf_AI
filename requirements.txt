@@ -8,4 +8,5 @@ tensorflow
 Pillow
 bentoml
 rembg
+matplotlib
 -e .

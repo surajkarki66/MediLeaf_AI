@@ -17,7 +17,8 @@ class PrepareBaseModel:
             include_top=self.config.params_include_top
         )
 
-        self.save_model(path=self.config.base_model_path, model=self.model)
+        self.save_model(path=self.config.base_model_path.joinpath(
+            Path(self.config.params_pre_trained_model)), model=self.model)
 
     @staticmethod
     def _prepare_full_model(model, classes, freeze_all, freeze_till, learning_rate):
@@ -28,11 +29,11 @@ class PrepareBaseModel:
             for layer in model.layers[:-freeze_till]:
                 model.trainable = False
 
-        flatten_in = tf.keras.layers.Flatten()(model.output)
+        global_avg_in = tf.keras.layers.GlobalAveragePooling2D()(model.output)
         prediction = tf.keras.layers.Dense(
             units=classes,
             activation="softmax"
-        )(flatten_in)
+        )(global_avg_in)
 
         full_model = tf.keras.models.Model(
             inputs=model.input,
@@ -57,7 +58,7 @@ class PrepareBaseModel:
             learning_rate=self.config.params_learning_rate
         )
 
-        self.save_model(path=self.config.updated_base_model_path,
+        self.save_model(path=self.config.updated_base_model_path.joinpath(Path(self.config.params_pre_trained_model)),
                         model=self.full_model)
 
     @staticmethod

@@ -46,7 +46,8 @@ class ConfigurationManager:
             params_learning_rate=self.params.LEARNING_RATE,
             params_include_top=self.params.INCLUDE_TOP,
             params_weights=self.params.WEIGHTS,
-            params_classes=self.params.CLASSES
+            params_classes=self.params.CLASSES,
+            params_pre_trained_model=self.params.PRE_TRAINED_MODEL
         )
 
         return prepare_base_model_config
@@ -79,15 +80,20 @@ class ConfigurationManager:
         training_data = os.path.join(
             self.config.data_ingestion.unzip_dir, "dataset_v1")
         create_directories([
-            Path(training.root_dir)
+            Path(training.root_dir),
+            Path(training.trained_model_dir),
+            Path(training.trained_metrics_dir),
         ])
 
         training_config = TrainingConfig(
             root_dir=Path(training.root_dir),
+            trained_model_dir=Path(training.trained_model_dir),
+            trained_metrics_dir=Path(training.trained_metrics_dir),
             trained_model_path=Path(training.trained_model_path),
             updated_base_model_path=Path(
                 prepare_base_model.updated_base_model_path),
             training_data=Path(training_data),
+            training_metrics_path=Path(training.training_metrics_path),
             params_epochs=params.EPOCHS,
             params_batch_size=params.BATCH_SIZE,
             params_is_augmentation=params.AUGMENTATION,
@@ -98,7 +104,8 @@ class ConfigurationManager:
 
     def get_validation_config(self) -> EvaluationConfig:
         eval_config = EvaluationConfig(
-            path_of_model=Path("artifacts/training/model"),
+            path_of_model=Path(
+                f'artifacts/training/{self.get_prepare_base_model_config().params_pre_trained_model}'),
             training_data=Path("artifacts/data_ingestion/dataset_v1"),
             all_params=self.params,
             params_image_size=self.params.IMAGE_SIZE,
@@ -108,6 +115,6 @@ class ConfigurationManager:
 
     def get_deployment_config(self) -> DeploymentConfig:
         deployment_config = DeploymentConfig(path_of_model=Path(
-            "artifacts/training/model"), model_tag="model_v1")
-        
+            f'artifacts/training/{self.get_prepare_base_model_config().params_pre_trained_model}'), model_tag=f'{self.get_prepare_base_model_config().params_pre_trained_model}')
+
         return deployment_config

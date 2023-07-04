@@ -15,7 +15,8 @@ class DeploymentPipeline:
     def main(self):
         config = ConfigurationManager()
         deployment_config = config.get_deployment_config()
-        deployment = Deployment(deployment_config)
+        prepare_base_config = config.get_prepare_base_model_config()
+        deployment = Deployment(deployment_config, prepare_base_config)
         deployment.deploy()
 
 
