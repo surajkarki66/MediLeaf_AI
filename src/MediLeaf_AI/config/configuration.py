@@ -62,7 +62,12 @@ class ConfigurationManager:
         prepare_callback_config = PrepareCallbacksConfig(
             root_dir=Path(config.root_dir),
             tensorboard_root_log_dir=Path(config.tensorboard_root_log_dir),
-            checkpoint_model_filepath=Path(config.checkpoint_model_filepath)
+            checkpoint_model_filepath=Path(config.checkpoint_model_filepath),
+            params_early_stopping_monitor=self.params.MONITOR,
+            params_early_stopping_min_delta=self.params.MIN_DELTA,
+            params_early_stopping_patience=self.params.PATIENCE,
+            params_early_stopping_mode=self.params.MODE,
+            params_early_stopping_is_restore_best_weight=self.params.RESTORE_BEST_WEIGHTS
         )
 
         return prepare_callback_config

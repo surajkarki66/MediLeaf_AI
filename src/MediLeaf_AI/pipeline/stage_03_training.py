@@ -4,7 +4,6 @@ from MediLeaf_AI.components.training import Training
 from MediLeaf_AI import logger
 
 
-
 STAGE_NAME = "Training"
 
 
@@ -15,9 +14,11 @@ class ModelTrainingPipeline:
     def main(self):
         config = ConfigurationManager()
         prepare_callbacks_config = config.get_prepare_callback_config()
-        prepare_callbacks = PrepareCallback(config=prepare_callbacks_config)
+        prepare_base_config = config.get_prepare_base_model_config()
+        training_config = config.get_training_config()
+        prepare_callbacks = PrepareCallback(
+            config=prepare_callbacks_config, prepare_base_config=prepare_base_config, training_config=training_config)
         callback_list = prepare_callbacks.get_tb_ckpt_callbacks()
-
 
         training_config = config.get_training_config()
         training = Training(config=training_config)
@@ -28,15 +29,14 @@ class ModelTrainingPipeline:
         )
 
 
-
-
 if __name__ == '__main__':
     try:
         logger.info(f"*******************")
         logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
         obj = ModelTrainingPipeline()
         obj.main()
-        logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+        logger.info(
+            f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
     except Exception as e:
         logger.exception(e)
         raise e

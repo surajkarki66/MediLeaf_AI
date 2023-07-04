@@ -25,6 +25,12 @@ class PrepareCallbacksConfig:
     root_dir: Path
     tensorboard_root_log_dir: Path
     checkpoint_model_filepath: Path
+    params_early_stopping_monitor: str
+    params_early_stopping_min_delta: float
+    params_early_stopping_patience: int
+    params_early_stopping_mode: str
+    params_early_stopping_is_restore_best_weight: bool
+
 
 @dataclass(frozen=True)
 class TrainingConfig:
