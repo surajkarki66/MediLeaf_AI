@@ -7,6 +7,7 @@ types-PyYAML
 tensorflow
 Pillow
 bentoml
+bentoctl
 rembg
 matplotlib
 -e .

@@ -1,6 +1,6 @@
 AUGMENTATION: True
-PRE_TRAINED_MODEL: vgg19
-IMAGE_SIZE: [224, 224, 3] # as per VGG 19 model
+PRE_TRAINED_MODEL: mobilenetv2
+IMAGE_SIZE: [224, 224, 3] # as per Mobilenet V2 model
 BATCH_SIZE: 16
 INCLUDE_TOP: False
 EPOCHS: 3

@@ -82,7 +82,9 @@ class Training:
             Path(self.prepare_base_model_config.params_pre_trained_model + "_accuracy")))
         self.plot_training_history(history, "loss", self.config.training_metrics_path.joinpath(
             Path(self.prepare_base_model_config.params_pre_trained_model + "_loss")))
-
+        self.plot_training_history(history, "auc", self.config.training_metrics_path.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model + "_auc")))
+        
         self.save_model(
             path=self.config.trained_model_path.joinpath(
                 Path(self.prepare_base_model_config.params_pre_trained_model)),

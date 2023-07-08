@@ -11,7 +11,7 @@ class PrepareBaseModel:
         self.config = config
 
     def get_base_model(self):
-        self.model = tf.keras.applications.vgg19.VGG19(
+        self.model = tf.keras.applications.MobileNetV2(
             input_shape=self.config.params_image_size,
             weights=self.config.params_weights,
             include_top=self.config.params_include_top
@@ -43,7 +43,9 @@ class PrepareBaseModel:
         full_model.compile(
             optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
             loss=tf.keras.losses.CategoricalCrossentropy(),
-            metrics=["accuracy"]
+            metrics=["accuracy",
+                      tf.keras.metrics.AUC(name="auc",multi_label=True, num_labels=classes, from_logits=False, label_weights=None),
+                    ]
         )
 
         full_model.summary()

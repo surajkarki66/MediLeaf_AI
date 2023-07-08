@@ -5,7 +5,7 @@ stages:
       - src/MediLeaf_AI/pipeline/stage_01_data_ingestion.py
       - config/config.yaml
     outs:
-      - artifacts/data_ingestion/dataset_v1
+      - artifacts/data_ingestion/dataset_v2
 
 
   prepare_base_model:
@@ -19,6 +19,12 @@ stages:
       - CLASSES
       - WEIGHTS
       - LEARNING_RATE
+      - PRE_TRAINED_MODEL
+      - MONITOR
+      - MIN_DELTA
+      - PATIENCE
+      - MODE
+      - RESTORE_BEST_WEIGHTS
     outs:
       - artifacts/prepare_base_model
 
@@ -36,6 +42,7 @@ stages:
       - EPOCHS
       - BATCH_SIZE
       - AUGMENTATION
+      - PRE_TRAINED_MODEL
     outs:
       - artifacts/training/model
 
@@ -50,6 +57,7 @@ stages:
     params:
       - IMAGE_SIZE
       - BATCH_SIZE
+      - PRE_TRAINED_MODEL
     metrics:
     - scores.json:
         cache: false
