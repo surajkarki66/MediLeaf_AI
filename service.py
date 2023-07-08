@@ -5,7 +5,7 @@ from bentoml.io import Image, JSON
 
 from MediLeaf_AI.utils.common import image_to_array, map_predictions_to_species_with_proba, add_white_background
 
-BENTO_MODEL_TAG = "model_v1:q6rfbaay32j2e4a4"
+BENTO_MODEL_TAG = "mobilenetv2:it2qcfa5wkmz44a4"
 
 classifier_runner = bentoml.tensorflow.get(BENTO_MODEL_TAG).to_runner()
 

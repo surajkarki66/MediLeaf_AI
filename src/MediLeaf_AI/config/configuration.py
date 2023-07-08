@@ -115,6 +115,6 @@ class ConfigurationManager:
 
     def get_deployment_config(self) -> DeploymentConfig:
         deployment_config = DeploymentConfig(path_of_model=Path(
-            f'artifacts/training/{self.get_prepare_base_model_config().params_pre_trained_model}'), model_tag=f'{self.get_prepare_base_model_config().params_pre_trained_model}')
+            f'artifacts/training/models/'), model_tag=f'{self.get_prepare_base_model_config().params_pre_trained_model}')
 
         return deployment_config
