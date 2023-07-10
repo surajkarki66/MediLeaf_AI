@@ -1,9 +1,9 @@
 AUGMENTATION: True
 PRE_TRAINED_MODEL: mobilenetv2
-IMAGE_SIZE: [224, 224, 3] # as per Mobilenet V2 model
+IMAGE_SIZE: [224, 224, 3] # as per MobileNet V2 model
 BATCH_SIZE: 16
 INCLUDE_TOP: False
-EPOCHS: 3
+EPOCHS: 1
 CLASSES: 30
 WEIGHTS: imagenet
 LEARNING_RATE: 0.001

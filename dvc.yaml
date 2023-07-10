@@ -12,6 +12,7 @@ stages:
     cmd: python src/MediLeaf_AI/pipeline/stage_02_prepare_base_model.py
     deps:
       - src/MediLeaf_AI/pipeline/stage_02_prepare_base_model.py
+      - src/MediLeaf_AI/components/prepare_base_model.py
       - config/config.yaml
     params:
       - IMAGE_SIZE
@@ -35,7 +36,7 @@ stages:
       - src/MediLeaf_AI/pipeline/stage_03_training.py
       - src/MediLeaf_AI/components/prepare_callbacks.py
       - config/config.yaml
-      - artifacts/data_ingestion/dataset_v1
+      - artifacts/data_ingestion/dataset_v2
       - artifacts/prepare_base_model
     params:
       - IMAGE_SIZE
@@ -43,8 +44,14 @@ stages:
       - BATCH_SIZE
       - AUGMENTATION
       - PRE_TRAINED_MODEL
+
+    metrics:
+      - training_scores.json:
+          cache: false
+
     outs:
-      - artifacts/training/model
+      - artifacts/training/models/mobilenetv2
+
 
 
   evaluation:
@@ -52,12 +59,13 @@ stages:
     deps:
       - src/MediLeaf_AI/pipeline/stage_04_evaluation.py
       - config/config.yaml
-      - artifacts/data_ingestion/dataset_v1
-      - artifacts/training/model
+      - artifacts/data_ingestion/dataset_v2
+      - artifacts/training/models/mobilenetv2
     params:
       - IMAGE_SIZE
       - BATCH_SIZE
       - PRE_TRAINED_MODEL
+
     metrics:
-    - scores.json:
+    - evalution_scores.json:
         cache: false

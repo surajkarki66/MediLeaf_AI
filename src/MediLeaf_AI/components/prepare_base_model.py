@@ -43,9 +43,18 @@ class PrepareBaseModel:
         full_model.compile(
             optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
             loss=tf.keras.losses.CategoricalCrossentropy(),
-            metrics=["accuracy",
-                      tf.keras.metrics.AUC(name="auc",multi_label=True, num_labels=classes, from_logits=False, label_weights=None),
-                    ]
+            metrics=[
+                tf.keras.metrics.TopKCategoricalAccuracy(
+                    name="top1_accuracy", k=1),
+                tf.keras.metrics.TopKCategoricalAccuracy(
+                    name="top3_accuracy", k=3),
+                tf.keras.metrics.TopKCategoricalAccuracy(
+                    name="top5_accuracy"),
+                tf.keras.metrics.Precision(name='precision'),
+                tf.keras.metrics.Recall(name='recall'),
+                tf.keras.metrics.AUC(
+                    name="auc", multi_label=True, num_labels=classes, from_logits=False, label_weights=None),
+            ]
         )
 
         full_model.summary()
@@ -66,3 +75,4 @@ class PrepareBaseModel:
     @staticmethod
     def save_model(path: Path, model: tf.keras.Model):
         model.save(path)
+

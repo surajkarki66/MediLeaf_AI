@@ -123,7 +123,7 @@ def map_predictions_to_species_with_proba(predictions, classes_path) -> list:
     predictions = predictions[0]
     predicted_class_indices = np.argsort(predictions)[::-1][:3]
     predicted_classes_with_probs = [
-        {"scientific_name": class_indices[str(i)], "probability": float(predictions[i])}
+        {"label": class_indices[str(i)], "confidence": float(predictions[i])}
         for i in predicted_class_indices
     ]
 

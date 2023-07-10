@@ -4,9 +4,15 @@ stages:
     cmd: python src/MediLeaf_AI/pipeline/stage_02_prepare_base_model.py
     deps:
     - path: config/config.yaml
-      md5: dac34f0473359c45a2c05d3f2a91b727
-      size: 765
+      hash: md5
+      md5: 15b4610a332056e4fe0976f56339733f
+      size: 914
+    - path: src/MediLeaf_AI/components/prepare_base_model.py
+      hash: md5
+      md5: 2be8b4dd8e767539762b53c295230bc9
+      size: 2724
     - path: src/MediLeaf_AI/pipeline/stage_02_prepare_base_model.py
+      hash: md5
       md5: 782576ced72c0cf824e513232813ed4a
       size: 984
     params:
@@ -18,23 +24,112 @@ stages:
         - 3
         INCLUDE_TOP: false
         LEARNING_RATE: 0.001
+        MIN_DELTA: 1e-05
+        MODE: auto
+        MONITOR: val_loss
+        PATIENCE: 20
+        PRE_TRAINED_MODEL: mobilenetv2
+        RESTORE_BEST_WEIGHTS: false
         WEIGHTS: imagenet
     outs:
     - path: artifacts/prepare_base_model
-      md5: 8e7aa4dbd6b2abc8665cccd537de4511.dir
-      size: 164079045
+      hash: md5
+      md5: d7ba4532dc9f17505722cff81a7427de.dir
+      size: 25152522
       nfiles: 10
   data_ingestion:
     cmd: python src/MediLeaf_AI/pipeline/stage_01_data_ingestion.py
     deps:
     - path: config/config.yaml
-      md5: dac34f0473359c45a2c05d3f2a91b727
-      size: 765
+      hash: md5
+      md5: 15b4610a332056e4fe0976f56339733f
+      size: 914
     - path: src/MediLeaf_AI/pipeline/stage_01_data_ingestion.py
+      hash: md5
       md5: 579a0fd9d20cd6fae29185b55f8c6e68
       size: 901
     outs:
-    - path: artifacts/data_ingestion/dataset_v1
-      md5: ddef8cb794e4b4c1d9fa88ae15c4145f.dir
-      size: 456077803
-      nfiles: 1835
+    - path: artifacts/data_ingestion/dataset_v2
+      hash: md5
+      md5: 5879b28c449c9fbd6216a72a13eac6c3.dir
+      size: 694658702
+      nfiles: 3665
+  training:
+    cmd: python src/MediLeaf_AI/pipeline/stage_03_training.py
+    deps:
+    - path: artifacts/data_ingestion/dataset_v2
+      hash: md5
+      md5: 5879b28c449c9fbd6216a72a13eac6c3.dir
+      size: 694658702
+      nfiles: 3665
+    - path: artifacts/prepare_base_model
+      hash: md5
+      md5: d7ba4532dc9f17505722cff81a7427de.dir
+      size: 25152522
+      nfiles: 10
+    - path: config/config.yaml
+      hash: md5
+      md5: 15b4610a332056e4fe0976f56339733f
+      size: 914
+    - path: src/MediLeaf_AI/components/prepare_callbacks.py
+      hash: md5
+      md5: b5df9bef8754275b8400292eaf3b43b6
+      size: 2354
+    - path: src/MediLeaf_AI/pipeline/stage_03_training.py
+      hash: md5
+      md5: 7f11fdd6797b5d835f40b5e8df39caed
+      size: 1505
+    params:
+      params.yaml:
+        AUGMENTATION: true
+        BATCH_SIZE: 16
+        EPOCHS: 1
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+        PRE_TRAINED_MODEL: mobilenetv2
+    outs:
+    - path: artifacts/training/models/mobilenetv2
+      hash: md5
+      md5: 3e9637b37c5992e717b065100f1963f9.dir
+      size: 13004164
+      nfiles: 5
+    - path: training_scores.json
+      hash: md5
+      md5: b9d39fd3b823d68033ddd8ca729afff2
+      size: 258
+  evaluation:
+    cmd: python src/MediLeaf_AI/pipeline/stage_04_evaluation.py
+    deps:
+    - path: artifacts/data_ingestion/dataset_v2
+      hash: md5
+      md5: 5879b28c449c9fbd6216a72a13eac6c3.dir
+      size: 694658702
+      nfiles: 3665
+    - path: artifacts/training/models/mobilenetv2
+      hash: md5
+      md5: 3e9637b37c5992e717b065100f1963f9.dir
+      size: 13004164
+      nfiles: 5
+    - path: config/config.yaml
+      hash: md5
+      md5: 15b4610a332056e4fe0976f56339733f
+      size: 914
+    - path: src/MediLeaf_AI/pipeline/stage_04_evaluation.py
+      hash: md5
+      md5: 0cfb35388e9f46d256d90ec582f96986
+      size: 1004
+    params:
+      params.yaml:
+        BATCH_SIZE: 16
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+        PRE_TRAINED_MODEL: mobilenetv2
+    outs:
+    - path: evalution_scores.json
+      hash: md5
+      md5: 9786602682c3d770266431a8aaa8cde6
+      size: 258

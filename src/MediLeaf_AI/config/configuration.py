@@ -78,7 +78,7 @@ class ConfigurationManager:
         prepare_base_model = self.config.prepare_base_model
         params = self.params
         training_data = os.path.join(
-            self.config.data_ingestion.unzip_dir, "dataset_v1")
+            self.config.data_ingestion.unzip_dir, "dataset_v2")
         create_directories([
             Path(training.root_dir),
             Path(training.trained_model_dir),
@@ -103,14 +103,18 @@ class ConfigurationManager:
         return training_config
 
     def get_validation_config(self) -> EvaluationConfig:
+        
+        create_directories([Path("artifacts/evaluation")])
         eval_config = EvaluationConfig(
             path_of_model=Path(
                 f'artifacts/training/{self.get_prepare_base_model_config().params_pre_trained_model}'),
-            training_data=Path("artifacts/data_ingestion/dataset_v1"),
+            training_data=Path("artifacts/data_ingestion/dataset_v2"),
             all_params=self.params,
+            evaluation_metrics_dir=Path("artifacts/evaluation"),
             params_image_size=self.params.IMAGE_SIZE,
             params_batch_size=self.params.BATCH_SIZE
         )
+
         return eval_config
 
     def get_deployment_config(self) -> DeploymentConfig:

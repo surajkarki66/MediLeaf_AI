@@ -10,4 +10,7 @@ bentoml
 bentoctl
 rembg
 matplotlib
+numpy
+seaborn
+scikit-learn
 -e .

@@ -1,5 +1,12 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 import tensorflow as tf
+
+from sklearn.metrics import confusion_matrix, classification_report
 from pathlib import Path
+
+
 from MediLeaf_AI.entity.config_entity import EvaluationConfig, PrepareBaseModelConfig, TrainingConfig
 from MediLeaf_AI.utils.common import save_json
 
@@ -42,7 +49,30 @@ class Evaluation:
             Path(self.prepare_base_model_config.params_pre_trained_model)))
         self._valid_generator()
         self.score = model.evaluate(self.valid_generator)
+        self.predictions = model.predict(self.valid_generator)
+        self.predicted_labels = np.argmax(self.predictions, axis=1)
+        self.actual_labels = self.valid_generator.classes
+        self.confusion_mtx = confusion_matrix(
+            self.actual_labels, self.predicted_labels)
+        self.class_labels = list(self.valid_generator.class_indices.keys())
+        self.plot_confusion_matrix()
 
     def save_score(self):
-        scores = {"loss": self.score[0], "accuracy": self.score[1], "auc": self.score[2]}
-        save_json(path=Path("scores.json"), data=scores)
+        scores = {"loss": self.score[0], "top1_accuracy": self.score[1], "top3_accuracy": self.score[2],
+                  "top5_accuracy": self.score[3], "precision": self.score[4], "recall": self.score[5],
+                  "auc": self.score[6]}
+        save_json(path=Path("evalution_scores.json"), data=scores)
+
+    def plot_confusion_matrix(self):
+        plt.clf()
+        plt.figure(figsize=(12, 10))
+        sns.heatmap(self.confusion_mtx, annot=True, fmt="d", cmap="Blues",
+                    xticklabels=self.class_labels, yticklabels=self.class_labels, cbar=False)
+        plt.title('Confusion Matrix')
+        plt.xlabel('Predicted Labels')
+        plt.ylabel('Actual Labels')
+        plt.xticks(rotation=45, ha='right')
+        plt.yticks(rotation=0)
+        plt.tight_layout()
+        plt.savefig(self.config.evaluation_metrics_dir.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model)))

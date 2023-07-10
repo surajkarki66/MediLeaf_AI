@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 from MediLeaf_AI.entity.config_entity import TrainingConfig, PrepareBaseModelConfig
+from MediLeaf_AI.utils.common import save_json
 
 
 class Training:
@@ -14,7 +15,8 @@ class Training:
     def get_base_model(self):
         self.model = tf.keras.models.load_model(
             self.config.updated_base_model_path.joinpath(
-                Path(self.prepare_base_model_config.params_pre_trained_model))
+                Path(self.prepare_base_model_config.params_pre_trained_model)),
+
         )
 
     def train_valid_generator(self):
@@ -69,7 +71,7 @@ class Training:
         self.steps_per_epoch = self.train_generator.samples // self.train_generator.batch_size
         self.validation_steps = self.valid_generator.samples // self.valid_generator.batch_size
 
-        history = self.model.fit(
+        self.history = self.model.fit(
             self.train_generator,
             epochs=self.config.params_epochs,
             steps_per_epoch=self.steps_per_epoch,
@@ -78,13 +80,21 @@ class Training:
             callbacks=callback_list
         )
 
-        self.plot_training_history(history, "accuracy", self.config.training_metrics_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_accuracy")))
-        self.plot_training_history(history, "loss", self.config.training_metrics_path.joinpath(
+        self.plot_training_history(self.history, "top1_accuracy", self.config.training_metrics_path.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model + "_top1_accuracy")))
+        self.plot_training_history(self.history, "top3_accuracy", self.config.training_metrics_path.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model + "_top3_accuracy")))
+        self.plot_training_history(self.history, "top5_accuracy", self.config.training_metrics_path.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model + "_top5_accuracy")))
+        self.plot_training_history(self.history, "loss", self.config.training_metrics_path.joinpath(
             Path(self.prepare_base_model_config.params_pre_trained_model + "_loss")))
-        self.plot_training_history(history, "auc", self.config.training_metrics_path.joinpath(
+        self.plot_training_history(self.history, "precision", self.config.training_metrics_path.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model + "_precision")))
+        self.plot_training_history(self.history, "recall", self.config.training_metrics_path.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model + "_recall")))
+        self.plot_training_history(self.history, "auc", self.config.training_metrics_path.joinpath(
             Path(self.prepare_base_model_config.params_pre_trained_model + "_auc")))
-        
+
         self.save_model(
             path=self.config.trained_model_path.joinpath(
                 Path(self.prepare_base_model_config.params_pre_trained_model)),
@@ -100,3 +110,13 @@ class Training:
         plt.ylabel(title)
         plt.legend([title, "val_" + title])
         plt.savefig(plot_path)
+
+    def save_score(self):
+        scores = {"loss": self.history.history['loss'][self.config.params_epochs-1],
+                  "top1_accuracy": self.history.history['top1_accuracy'][self.config.params_epochs-1],
+                  "top3_accuracy": self.history.history['top3_accuracy'][self.config.params_epochs-1],
+                  "top5_accuracy": self.history.history['top5_accuracy'][self.config.params_epochs-1],
+                  "precision": self.history.history['precision'][self.config.params_epochs-1],
+                  "recall": self.history.history['recall'][self.config.params_epochs-1],
+                  "auc": self.history.history['auc'][self.config.params_epochs-1]}
+        save_json(path=Path("training_scores.json"), data=scores)

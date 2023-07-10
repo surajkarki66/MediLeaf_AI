@@ -27,6 +27,7 @@ class ModelTrainingPipeline:
         training.train(
             callback_list=callback_list
         )
+        training.save_score()
 
 
 if __name__ == '__main__':
