@@ -37,10 +37,10 @@ class PrepareCallbacksConfig:
 class TrainingConfig:
     root_dir: Path
     trained_model_dir: Path
-    trained_metrics_dir: Path
+    training_graphs_dir: Path
     trained_model_path: Path
     updated_base_model_path: Path
-    training_metrics_path: Path
+    training_graphs_path: Path
     training_data: Path
     params_epochs: int
     params_batch_size: int

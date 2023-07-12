@@ -80,20 +80,20 @@ class Training:
             callbacks=callback_list
         )
 
-        self.plot_training_history(self.history, "top1_accuracy", self.config.training_metrics_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_top1_accuracy")))
-        self.plot_training_history(self.history, "top3_accuracy", self.config.training_metrics_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_top3_accuracy")))
-        self.plot_training_history(self.history, "top5_accuracy", self.config.training_metrics_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_top5_accuracy")))
-        self.plot_training_history(self.history, "loss", self.config.training_metrics_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_loss")))
-        self.plot_training_history(self.history, "precision", self.config.training_metrics_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_precision")))
-        self.plot_training_history(self.history, "recall", self.config.training_metrics_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_recall")))
-        self.plot_training_history(self.history, "auc", self.config.training_metrics_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_auc")))
+        self.plot_training_history(self.history, "top1_accuracy", self.config.training_graphs_path.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model + "_top1_accuracy")), "Training and Validation Top-1 Accuracy")
+        self.plot_training_history(self.history, "top3_accuracy", self.config.training_graphs_path.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model + "_top3_accuracy")), "Training and Validation Top-3 Accuracy")
+        self.plot_training_history(self.history, "top5_accuracy", self.config.training_graphs_path.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model + "_top5_accuracy")), "Training and Validation Top-5 Accuracy")
+        self.plot_training_history(self.history, "loss", self.config.training_graphs_path.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model + "_loss")), "Training and Validation Loss")
+        self.plot_training_history(self.history, "precision", self.config.training_graphs_path.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model + "_precision")), "Training and Validation Precision")
+        self.plot_training_history(self.history, "recall", self.config.training_graphs_path.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model + "_recall")), "Training and Validation Recall")
+        self.plot_training_history(self.history, "auc", self.config.training_graphs_path.joinpath(
+            Path(self.prepare_base_model_config.params_pre_trained_model + "_auc")), "Training and Validation AUC Score")
 
         self.save_model(
             path=self.config.trained_model_path.joinpath(
@@ -101,11 +101,11 @@ class Training:
             model=self.model
         )
 
-    def plot_training_history(self, history, title, plot_path):
+    def plot_training_history(self, history, title, plot_path, graph_title):
         plt.clf()
         plt.plot(history.history[title])
         plt.plot(history.history["val_" + title])
-        plt.title(self.prepare_base_model_config.params_pre_trained_model.upper())
+        plt.title(graph_title+" "+"("+self.prepare_base_model_config.params_pre_trained_model+")")
         plt.xlabel("epochs")
         plt.ylabel(title)
         plt.legend([title, "val_" + title])

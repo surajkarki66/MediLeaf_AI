@@ -82,18 +82,18 @@ class ConfigurationManager:
         create_directories([
             Path(training.root_dir),
             Path(training.trained_model_dir),
-            Path(training.trained_metrics_dir),
+            Path(training.training_graphs_dir),
         ])
 
         training_config = TrainingConfig(
             root_dir=Path(training.root_dir),
             trained_model_dir=Path(training.trained_model_dir),
-            trained_metrics_dir=Path(training.trained_metrics_dir),
+            training_graphs_dir=Path(training.training_graphs_dir),
             trained_model_path=Path(training.trained_model_path),
             updated_base_model_path=Path(
                 prepare_base_model.updated_base_model_path),
             training_data=Path(training_data),
-            training_metrics_path=Path(training.training_metrics_path),
+            training_graphs_path=Path(training.training_graphs_path),
             params_epochs=params.EPOCHS,
             params_batch_size=params.BATCH_SIZE,
             params_is_augmentation=params.AUGMENTATION,

@@ -19,6 +19,6 @@ prepare_callbacks:
 training:
   root_dir: artifacts/training
   trained_model_dir: artifacts/training/models
-  trained_metrics_dir: artifacts/training/metrics
+  training_graphs_dir: artifacts/training/graphs
   trained_model_path: artifacts/training/models/
-  training_metrics_path: artifacts/training/metrics/
+  training_graphs_path: artifacts/training/graphs/

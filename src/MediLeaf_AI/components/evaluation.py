@@ -68,7 +68,7 @@ class Evaluation:
         plt.figure(figsize=(12, 10))
         sns.heatmap(self.confusion_mtx, annot=True, fmt="d", cmap="Blues",
                     xticklabels=self.class_labels, yticklabels=self.class_labels, cbar=False)
-        plt.title('Confusion Matrix')
+        plt.title(f'Confusion Matrix ({self.prepare_base_model_config.params_pre_trained_model})')
         plt.xlabel('Predicted Labels')
         plt.ylabel('Actual Labels')
         plt.xticks(rotation=45, ha='right')

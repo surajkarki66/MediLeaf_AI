@@ -1,5 +1,5 @@
 AUGMENTATION: True
-PRE_TRAINED_MODEL: mobilenetv2
+PRE_TRAINED_MODEL: MobileNetV2
 IMAGE_SIZE: [224, 224, 3] # as per MobileNet V2 model
 BATCH_SIZE: 16
 INCLUDE_TOP: False
