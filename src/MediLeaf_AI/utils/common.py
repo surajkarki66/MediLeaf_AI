@@ -99,7 +99,7 @@ def get_size(path: Path) -> str:
 
 
 def image_to_array(image) -> np.ndarray:
-    image = image.resize((224, 224))
+    image = image.resize((300, 300))
     image_array = np.array(image)
     image_array = image_array / 255.0
     image_array = np.expand_dims(image_array, axis=0).astype("float32")

@@ -11,7 +11,7 @@ class PrepareBaseModel:
         self.config = config
 
     def get_base_model(self):
-        self.model = tf.keras.applications.MobileNetV2(
+        self.model = tf.keras.applications.InceptionV3(
             input_shape=self.config.params_image_size,
             weights=self.config.params_weights,
             include_top=self.config.params_include_top
@@ -47,8 +47,6 @@ class PrepareBaseModel:
                 tf.keras.metrics.TopKCategoricalAccuracy(
                     name="top1_accuracy", k=1),
                 tf.keras.metrics.TopKCategoricalAccuracy(
-                    name="top3_accuracy", k=3),
-                tf.keras.metrics.TopKCategoricalAccuracy(
                     name="top5_accuracy"),
                 tf.keras.metrics.Precision(name='precision'),
                 tf.keras.metrics.Recall(name='recall'),
@@ -75,4 +73,3 @@ class PrepareBaseModel:
     @staticmethod
     def save_model(path: Path, model: tf.keras.Model):
         model.save(path)
-
