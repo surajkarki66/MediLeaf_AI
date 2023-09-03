@@ -17,7 +17,7 @@ session = rembg.new_session("u2netp")
 @medileaf_service.api(input=Image(), output=JSON())
 async def classify(input_image):
     img = add_white_background(session, input_image, size=(1600, 1200))
-    img_arr = image_to_array(input_image)
+    img_arr = image_to_array(img)
     result =  await classifier_runner.async_run(img_arr)
     prediction_response = map_predictions_to_species_with_proba(result, "./classes.json")
     
