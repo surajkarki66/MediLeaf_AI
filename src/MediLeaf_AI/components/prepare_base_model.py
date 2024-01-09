@@ -1,3 +1,4 @@
+import os
 import tensorflow as tf
 
 from pathlib import Path
@@ -17,8 +18,7 @@ class PrepareBaseModel:
             include_top=self.config.params_include_top
         )
 
-        self.save_model(path=self.config.base_model_path.joinpath(
-            Path(self.config.params_pre_trained_model)), model=self.model)
+        self.save_model(path=os.path.join(self.config.base_model_path, Path(self.config.params_pre_trained_model)), model=self.model)
 
     @staticmethod
     def _prepare_full_model(model, classes, freeze_all, freeze_till, learning_rate):
@@ -67,7 +67,7 @@ class PrepareBaseModel:
             learning_rate=self.config.params_learning_rate
         )
 
-        self.save_model(path=self.config.updated_base_model_path.joinpath(Path(self.config.params_pre_trained_model)),
+        self.save_model(path=os.path.join(self.config.updated_base_model_path, Path(self.config.params_pre_trained_model)),
                         model=self.full_model)
 
     @staticmethod

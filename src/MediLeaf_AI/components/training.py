@@ -1,3 +1,4 @@
+import os
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
@@ -14,9 +15,7 @@ class Training:
 
     def get_base_model(self):
         self.model = tf.keras.models.load_model(
-            self.config.updated_base_model_path.joinpath(
-                Path(self.prepare_base_model_config.params_pre_trained_model)),
-
+            os.path.join(self.config.updated_base_model_path, Path(self.prepare_base_model_config.params_pre_trained_model)),
         )
 
     def train_valid_generator(self):
@@ -80,22 +79,15 @@ class Training:
             callbacks=callback_list
         )
 
-        self.plot_training_history(self.history, "top1_accuracy", self.config.training_graphs_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_top1_accuracy")), "Training and Validation Top-1 Accuracy")
-        self.plot_training_history(self.history, "top5_accuracy", self.config.training_graphs_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_top5_accuracy")), "Training and Validation Top-5 Accuracy")
-        self.plot_training_history(self.history, "loss", self.config.training_graphs_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_loss")), "Training and Validation Loss")
-        self.plot_training_history(self.history, "precision", self.config.training_graphs_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_precision")), "Training and Validation Precision")
-        self.plot_training_history(self.history, "recall", self.config.training_graphs_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_recall")), "Training and Validation Recall")
-        self.plot_training_history(self.history, "auc", self.config.training_graphs_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model + "_auc")), "Training and Validation AUC Score")
+        self.plot_training_history(self.history, "top1_accuracy", os.path.join(self.config.training_graphs_path, Path(self.prepare_base_model_config.params_pre_trained_model + "_top1_accuracy")), "Training and Validation Top-1 Accuracy")
+        self.plot_training_history(self.history, "top5_accuracy", os.path.join(self.config.training_graphs_path, Path(self.prepare_base_model_config.params_pre_trained_model + "_top5_accuracy")), "Training and Validation Top-5 Accuracy")
+        self.plot_training_history(self.history, "loss", os.path.join(self.config.training_graphs_path, Path(self.prepare_base_model_config.params_pre_trained_model + "_loss")), "Training and Validation Loss")
+        self.plot_training_history(self.history, "precision", os.path.join(self.config.training_graphs_path, Path(self.prepare_base_model_config.params_pre_trained_model + "_precision")), "Training and Validation Precision")
+        self.plot_training_history(self.history, "recall", os.path.join(self.config.training_graphs_path, Path(self.prepare_base_model_config.params_pre_trained_model + "_recall")), "Training and Validation Recall")
+        self.plot_training_history(self.history, "auc", os.path.join(self.config.training_graphs_path, Path(self.prepare_base_model_config.params_pre_trained_model + "_auc")), "Training and Validation AUC Score")
 
         self.save_model(
-            path=self.config.trained_model_path.joinpath(
-                Path(self.prepare_base_model_config.params_pre_trained_model)),
+            path=os.path.join(self.config.trained_model_path, Path(self.prepare_base_model_config.params_pre_trained_model)),
             model=self.model
         )
 
@@ -112,7 +104,6 @@ class Training:
     def save_score(self):
         scores = {"loss": self.history.history['loss'][self.config.params_epochs-1],
                   "top1_accuracy": self.history.history['top1_accuracy'][self.config.params_epochs-1],
-                  "top3_accuracy": self.history.history['top3_accuracy'][self.config.params_epochs-1],
                   "top5_accuracy": self.history.history['top5_accuracy'][self.config.params_epochs-1],
                   "precision": self.history.history['precision'][self.config.params_epochs-1],
                   "recall": self.history.history['recall'][self.config.params_epochs-1],

@@ -28,8 +28,7 @@ class PrepareCallback:
     @property
     def _create_ckpt_callbacks(self):
         return tf.keras.callbacks.ModelCheckpoint(
-            filepath=self.config.checkpoint_model_filepath.joinpath(
-                Path(self.prepare_base_config.params_pre_trained_model)),
+            filepath=os.path.join(self.config.checkpoint_model_filepath, Path(self.prepare_base_config.params_pre_trained_model)),
             save_best_only=True
         )
 

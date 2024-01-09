@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -45,8 +46,7 @@ class Evaluation:
         return tf.keras.models.load_model(path)
 
     def evaluation(self):
-        model = self.load_model(self.training_config.trained_model_path.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model)))
+        model = self.load_model(os.path.join(self.training_config.trained_model_path, Path(self.prepare_base_model_config.params_pre_trained_model) ))
         self._valid_generator()
         self.score = model.evaluate(self.valid_generator)
         self.predictions = model.predict(self.valid_generator)
@@ -58,10 +58,10 @@ class Evaluation:
         self.plot_confusion_matrix()
 
     def save_score(self):
-        scores = {"loss": self.score[0], "top1_accuracy": self.score[1], "top3_accuracy": self.score[2],
-                  "top5_accuracy": self.score[3], "precision": self.score[4], "recall": self.score[5],
-                  "auc": self.score[6]}
-        save_json(path=Path("evalution_scores.json"), data=scores)
+        scores = {"loss": self.score[0], "top1_accuracy": self.score[1], "top5_accuracy": self.score[2],
+                   "precision": self.score[3], "recall": self.score[4],
+                   "auc": self.score[5]}
+        save_json(path=Path("evaluation_scores.json"), data=scores)
 
     def plot_confusion_matrix(self):
         plt.clf()
@@ -74,5 +74,4 @@ class Evaluation:
         plt.xticks(rotation=45, ha='right')
         plt.yticks(rotation=0)
         plt.tight_layout()
-        plt.savefig(self.config.evaluation_metrics_dir.joinpath(
-            Path(self.prepare_base_model_config.params_pre_trained_model)))
+        plt.savefig(os.path.join(self.config.evaluation_metrics_dir, Path(self.prepare_base_model_config.params_pre_trained_model)))

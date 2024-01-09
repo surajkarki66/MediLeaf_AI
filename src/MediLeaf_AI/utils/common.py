@@ -4,6 +4,7 @@ import yaml
 import json
 import numpy as np
 
+from io import BytesIO
 from rembg.sessions import BaseSession
 from PIL import Image
 from ensure import ensure_annotations
@@ -98,19 +99,24 @@ def get_size(path: Path) -> str:
     return f"~ {size_in_kb} KB"
 
 
+def read_imagefile(file) -> Image.Image:
+    image = Image.open(BytesIO(file))
+    return image
+
 def image_to_array(image) -> np.ndarray:
-    image = image.resize((300, 300))
+    image = image.resize((224, 224))
     image_array = np.array(image)
     image_array = image_array / 255.0
     image_array = np.expand_dims(image_array, axis=0).astype("float32")
 
     return image_array
 
-def add_white_background(session, image, size=None, bgcolor='white') -> Image:
+def add_white_background(session, image: Image.Image, size=None, bgcolor='white') -> Image:
     if size is not None:
         image = image.resize(size)
     else:
         size = image.size
+
     result = Image.new("RGB", size, bgcolor)
     out = rembg.remove(image, session=session)
     result.paste(out, mask=out)
