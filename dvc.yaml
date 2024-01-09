@@ -53,7 +53,6 @@ stages:
       - artifacts/training/models/MobileNetV2
 
 
-
   evaluation:
     cmd: python src/MediLeaf_AI/pipeline/stage_04_evaluation.py
     deps:
@@ -67,5 +66,5 @@ stages:
       - PRE_TRAINED_MODEL
 
     metrics:
-    - evalution_scores.json:
+    - evaluation_scores.json:
         cache: false

@@ -129,7 +129,7 @@ stages:
         - 3
         PRE_TRAINED_MODEL: MobileNetV2
     outs:
-    - path: evalution_scores.json
+    - path: evaluation_scores.json
       hash: md5
       md5: 98b1d8838bb445df6719f1c8cd953429
       size: 258
