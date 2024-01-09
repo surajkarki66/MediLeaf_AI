@@ -5,7 +5,7 @@ from MediLeaf_AI.utils.common import read_yaml, create_directories
 from MediLeaf_AI.entity.config_entity import (DataIngestionConfig,
                                               PrepareBaseModelConfig,
                                               PrepareCallbacksConfig, TrainingConfig,
-                                              EvaluationConfig, DeploymentConfig)
+                                              EvaluationConfig)
 
 
 class ConfigurationManager:
