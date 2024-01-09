@@ -6,11 +6,11 @@ ensure
 types-PyYAML
 tensorflow
 Pillow
-bentoml
-bentoctl
 rembg
 matplotlib
 numpy
 seaborn
 scikit-learn
+fastapi
+uvicorn
 -e .
