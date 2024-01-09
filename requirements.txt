@@ -13,4 +13,5 @@ seaborn
 scikit-learn
 fastapi
 uvicorn
+python-multipart
 -e .
