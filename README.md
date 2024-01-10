@@ -93,5 +93,5 @@ You can perform classification using the API endpoint: http://0.0.0.0:8000/api/v
     python service.py
     ```
 
-You can perform classification using the API endpoint: http://0.0.0.0:5000/api/v1/classify/
+You can perform classification using the API endpoint: http://0.0.0.0:8000/api/v1/classify/
 ![Screenshot from 10-01-24 23:46:57](https://github.com/surajkarki66/MediLeaf_AI/assets/50628520/96296e1b-4659-4bf0-81dd-a5407eb8d45e)
