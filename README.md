@@ -1,6 +1,7 @@
 # MediLeaf-AI
 
-MediLeaf is an application whose motive is to help the individual to identify medicinal plant with their properties by just scanning the leaf of any plant which might result creating curiosity about plant that lead to the preservation of the valuable plants as well as source of income. This is also an end to end deep learning project focusing from development to deployment.
+MediLeaf is an application whose motive is to help the individual to identify medicinal plant with their properties by just scanning the leaf of any plant which might result creating curiosity about plant that lead to the preservation of the valuable plants as well as source of income. This is also an end to end deep learning project focusing from development to deployment. You can train your own model and deploy it into the FastAPI here.
+
 
 MediLeaf model can classify leaf of following types of plant.
 |           Plants              |        Plants                 |           Plants              |
@@ -70,9 +71,26 @@ dvc repro
 dvc dag
 ```
 
+## Running Prediction API using Docker
+1. Run the following docker command
 
-## Live Preview
-To check the live demo of the prediction, [click here]()
+```bash
+    docker compose up --build
+```
 
-## Running Prediction API locally
+You can perform classification using the API endpoint: http://0.0.0.0:8000/api/v1/classify/
 
+## Running Prediction API Locally
+1. Create a Python virtual environment and activate the environment based on your machine(Linux, MacOS, and Windows)
+
+2. Install the dependencies
+   ```bash
+    pip install -r requirements.txt
+   ```
+
+3. Run the api server
+    ```bash
+    python service.py
+    ```
+
+You can perform classification using the API endpoint: http://0.0.0.0:5000/api/v1/classify/
