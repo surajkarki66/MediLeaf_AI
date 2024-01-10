@@ -31,29 +31,20 @@ MediLeaf model can classify leaf of following types of plant.
 
 
 ## How to Train?
-### STEPS:
 
-Clone the repository
+### A. Normal way of training
 
+1. Clone the repository
 ```bash
 https://github.com/surajkarki66/MediLeaf_AI
 ```
-### STEP 01- Create a conda environment after opening the repository
+2. Create a Python virtual environment and activate the environment based on your machine(Linux, MacOS, and Windows)
 
-```bash
-conda create -n medileaf python=3.8 -y
-```
-
-```bash
-conda activate medileaf
-```
-
-
-### STEP 02- install the requirements
+3. Install the requirements
 ```bash
 pip install -r requirements.txt
 ```
-
+3. Run the following command
 
 ```bash
 # Finally run the following command
@@ -67,11 +58,18 @@ Model training will start soon
 
 `Note`: Check `params.yaml` to tweak the configuration of the model.
 
-### DVC cmd
+### B. Using MLops tool DVC for training
 
-1. dvc init
-2. dvc repro
-3. dvc dag
+1. First run
+```bash
+dvc repro
+```
+
+2. Then,
+```bash
+dvc dag
+```
+
 
 ## Live Preview
 To check the live demo of the prediction, [click here]()
