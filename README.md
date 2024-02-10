@@ -37,7 +37,7 @@ MediLeaf model can classify leaf of following types of plant.
 
 1. Clone the repository
 ```bash
-https://github.com/surajkarki66/MediLeaf_AI
+git clone https://github.com/surajkarki66/MediLeaf_AI
 ```
 2. Create a Python virtual environment and activate the environment based on your machine(Linux, MacOS, and Windows)
 
