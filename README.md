@@ -1,21 +1,41 @@
 # MediLeaf-AI
 
-MediLeaf is an application whose motive is to help the individual to identify medicinal plant with their properties by just scanning the leaf of any plant which might result creating curiosity about plant that lead to the preservation of the valuable plants as well as source of income. This is also an end to end deep learning project focusing from development to deployment. You can train your own model and deploy it into the FastAPI here.
+MediLeaf is an application whose motive is to help the individual identify medicinal plants with their properties by just scanning the leaf of any plant which might create curiosity about the plant that leads to the preservation of the valuable plants. This is also an end-to-end deep learning project focusing from development to deployment. You can train your model and deploy it into the FastAPI here.
 
 
-MediLeaf model can classify leaf of following types of plant.
-|           Plants              |        Plants                 |           Plants              |
-|-------------------------|-------------------------|-------------------------|
-| Alpinia Galanga         | Amaranthus Viridis      | Artocarpus Heterophyllus|
-| Azadirachta Indica      | Basella Alba            | Brassica Juncea         |
-| Carissa Carandas        | Citrus Limon            | Ficus Auriculata        |
-| Ficus Religiosa         | Hibiscus Rosa-sinensis  | Jasminum                |
-| Mangifera Indica        | Mentha                  | Moringa Oleifera        |
-| Muntingia Calabura      | Murraya Koenigii        | Nerium Oleander         |
-| Nyctanthes Arbor-tristis| Ocimum Tenuiflorum       | Piper Betle             |
-| Plectranthus Amboinicus | Pongamia Pinnata        | Psidium Guajava         |
-| Punica Granatum         | Santalum Album          | Syzygium Cumini         |
-| Syzygium Jambos         | Tabernaemontana Divaricata| Trigonella Foenum-graecum|
+Currently, mediLeaf can fairly classify 30 different species of plants by using their leaf images. 
+| Scientific Name          |
+|--------------------------|
+| Alpinia Galanga          |
+| Amaranthus Viridis       |
+| Artocarpus Heterophyllus|
+| Azadirachta Indica       |
+| Basella Alba             |
+| Brassica Juncea          |
+| Carissa Carandas         |
+| Citrus Limon             |
+| Ficus Auriculata         |
+| Ficus Religiosa          |
+| Hibiscus Rosa-sinensis   |
+| Jasminum                 |
+| Mangifera Indica         |
+| Mentha                   |
+| Moringa Oleifera         |
+| Muntingia Calabura       |
+| Murraya Koenigii         |
+| Nerium Oleander          |
+| Nyctanthes Arbor-tristis |
+| Ocimum Tenuiflorum       |
+| Piper Betle              |
+| Plectranthus Amboinicus  |
+| Pongamia Pinnata         |
+| Psidium Guajava          |
+| Punica Granatum          |
+| Santalum Album           |
+| Syzygium Cumini          |
+| Syzygium Jambos          |
+| Tabernaemontana Divaricata|
+| Trigonella Foenum-graecum|
 
 
 ## Workflows
