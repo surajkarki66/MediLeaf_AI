@@ -6,7 +6,7 @@ import tensorflow as tf
 
 from MediLeaf_AI.utils.common import image_to_array, map_predictions_to_species_with_proba, add_white_background, read_imagefile
 
-model_dir = "./artifacts/training/models/mobilenet.keras"
+model_dir = "./artifacts/training/models/mobilenet_no_exp.keras"
 model = tf.keras.models.load_model(model_dir)
 session = rembg.new_session("u2netp")
 
