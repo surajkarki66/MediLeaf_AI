@@ -5,8 +5,8 @@ stages:
     deps:
     - path: config/config.yaml
       hash: md5
-      md5: 0009474381819cb0a5fb952259f7743a
-      size: 1030
+      md5: 5a374e16726ad67ecde35fda80604905
+      size: 1058
     - path: src/MediLeaf_AI/components/prepare_base_model.py
       hash: md5
       md5: 31a64056e96b3587d4e0941dd638fa50
@@ -35,7 +35,7 @@ stages:
     outs:
     - path: artifacts/prepare_base_model
       hash: md5
-      md5: 26c4d14ded33ba6095a6d6170314bf9b.dir
+      md5: 9b4e5166f522181f919aa17b6e5d0537.dir
       size: 26539039
       nfiles: 2
   data_ingestion:
@@ -43,8 +43,8 @@ stages:
     deps:
     - path: config/config.yaml
       hash: md5
-      md5: 0009474381819cb0a5fb952259f7743a
-      size: 1030
+      md5: 5a374e16726ad67ecde35fda80604905
+      size: 1058
     - path: src/MediLeaf_AI/pipeline/stage_01_data_ingestion.py
       hash: md5
       md5: 579a0fd9d20cd6fae29185b55f8c6e68
@@ -65,13 +65,13 @@ stages:
       nfiles: 5164
     - path: artifacts/prepare_base_model
       hash: md5
-      md5: 26c4d14ded33ba6095a6d6170314bf9b.dir
+      md5: 9b4e5166f522181f919aa17b6e5d0537.dir
       size: 26539039
       nfiles: 2
     - path: config/config.yaml
       hash: md5
-      md5: 0009474381819cb0a5fb952259f7743a
-      size: 1030
+      md5: 5a374e16726ad67ecde35fda80604905
+      size: 1058
     - path: src/MediLeaf_AI/components/prepare_callbacks.py
       hash: md5
       md5: 37c1bc70f2d52fc9816d7f86f7c5056e
@@ -83,9 +83,9 @@ stages:
     params:
       params.yaml:
         AUGMENTATION: true
-        BATCH_SIZE: 16
-        EPOCHS: 1
-        EXPERIMENT_CASE: ABC
+        BATCH_SIZE: 32
+        EPOCHS: 35
+        EXPERIMENT_CASE: no_exp
         IMAGE_SIZE:
         - 224
         - 224
@@ -94,12 +94,12 @@ stages:
     outs:
     - path: artifacts/training/models/mobilenet_ABC.keras
       hash: md5
-      md5: 5d0574af4569940579cfc624ce3e81c4
+      md5: 045d4e981cd1bb06adf3480c4a22a52a
       size: 39297442
     - path: artifacts/training/scores/training_scores_ABC.json
       hash: md5
-      md5: 44de084968de263a855a16b46913ca80
-      size: 190
+      md5: f0fff5e1888c8d3cf366c316b8076877
+      size: 222
   evaluation:
     cmd: python src/MediLeaf_AI/pipeline/stage_04_evaluation.py
     deps:

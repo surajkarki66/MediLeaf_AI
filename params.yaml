@@ -1,9 +1,9 @@
 AUGMENTATION: True                # Whether want to to augment the data or not
 PRE_TRAINED_MODEL: mobilenet      # Valid options = [mobilenet, mobilenetv2, mobilenetv3, nasnetmobile, inceptionv3]
 IMAGE_SIZE: [224, 224, 3]         # Input image size taken by models: [height, width, channels]
-BATCH_SIZE: 16                    # Batch size for training
+BATCH_SIZE: 32                    # Batch size for training
 INCLUDE_TOP: False
-EPOCHS: 1                         # No. of epochs required to train the model
+EPOCHS: 35                        # No. of epochs required to train the model
 CLASSES: 30                       # No. of classes in the dataset      
 WEIGHTS: imagenet                 # Pre-trained weights to be used
 LEARNING_RATE: 0.001              # Learning rate for the training
@@ -12,5 +12,5 @@ MIN_DELTA: 0.00001
 PATIENCE: 20
 MODE: auto
 RESTORE_BEST_WEIGHTS: False
-OPTIMIZER: adam                   # Valid options = [adam, sgd, rmsprop, adagrad], Optimizer to be used for training
-EXPERIMENT_CASE: ABC              # Set different model combination
+OPTIMIZER: adam                      # Valid options = [adam, sgd, rmsprop, adagrad], Optimizer to be used for training
+EXPERIMENT_CASE: no_exp              # Set different model combination
