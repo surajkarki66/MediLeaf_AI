@@ -20,5 +20,11 @@ training:
   root_dir: artifacts/training
   trained_model_dir: artifacts/training/models
   training_graphs_dir: artifacts/training/graphs
-  trained_model_path: artifacts/training/models/
-  training_graphs_path: artifacts/training/graphs/
+  training_scores_dir: artifacts/training/scores
+
+testing:
+  root_dir: artifacts/testing
+  testing_cm_dir: artifacts/testing/cm
+  testing_scores_dir: artifacts/testing/scores
+
+  

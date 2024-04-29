@@ -15,29 +15,24 @@ class Training:
 
     def get_base_model(self):
         self.model = tf.keras.models.load_model(
-            os.path.join(self.config.updated_base_model_path, Path(self.prepare_base_model_config.params_pre_trained_model)),
+            os.path.join(self.config.updated_base_model_path, Path(
+                self.prepare_base_model_config.params_pre_trained_model + ".keras")),
         )
 
     def train_valid_generator(self):
-
         datagenerator_kwargs = dict(
             rescale=1./255,
-            validation_split=0.20
         )
-
         dataflow_kwargs = dict(
             target_size=self.config.params_image_size[:-1],
             batch_size=self.config.params_batch_size,
             class_mode="categorical",
         )
-
         valid_datagenerator = tf.keras.preprocessing.image.ImageDataGenerator(
             **datagenerator_kwargs
         )
-
         self.valid_generator = valid_datagenerator.flow_from_directory(
-            directory=self.config.training_data,
-            subset="validation",
+            directory=self.config.validation_data,
             shuffle=False,
             **dataflow_kwargs
         )
@@ -57,7 +52,6 @@ class Training:
 
         self.train_generator = train_datagenerator.flow_from_directory(
             directory=self.config.training_data,
-            subset="training",
             shuffle=True,
             **dataflow_kwargs
         )
@@ -79,15 +73,22 @@ class Training:
             callbacks=callback_list
         )
 
-        self.plot_training_history(self.history, "top1_accuracy", os.path.join(self.config.training_graphs_path, Path(self.prepare_base_model_config.params_pre_trained_model + "_top1_accuracy")), "Training and Validation Top-1 Accuracy")
-        self.plot_training_history(self.history, "top5_accuracy", os.path.join(self.config.training_graphs_path, Path(self.prepare_base_model_config.params_pre_trained_model + "_top5_accuracy")), "Training and Validation Top-5 Accuracy")
-        self.plot_training_history(self.history, "loss", os.path.join(self.config.training_graphs_path, Path(self.prepare_base_model_config.params_pre_trained_model + "_loss")), "Training and Validation Loss")
-        self.plot_training_history(self.history, "precision", os.path.join(self.config.training_graphs_path, Path(self.prepare_base_model_config.params_pre_trained_model + "_precision")), "Training and Validation Precision")
-        self.plot_training_history(self.history, "recall", os.path.join(self.config.training_graphs_path, Path(self.prepare_base_model_config.params_pre_trained_model + "_recall")), "Training and Validation Recall")
-        self.plot_training_history(self.history, "auc", os.path.join(self.config.training_graphs_path, Path(self.prepare_base_model_config.params_pre_trained_model + "_auc")), "Training and Validation AUC Score")
+        self.plot_training_history(self.history, "top1_accuracy", os.path.join(self.config.training_graphs_dir, Path(
+            self.prepare_base_model_config.params_pre_trained_model + "_top1_accuracy_" + self.config.experiment_case)), "Training and Validation Top-1 Accuracy")
+        self.plot_training_history(self.history, "top5_accuracy", os.path.join(self.config.training_graphs_dir, Path(
+            self.prepare_base_model_config.params_pre_trained_model + "_top5_accuracy_" + self.config.experiment_case)), "Training and Validation Top-5 Accuracy")
+        self.plot_training_history(self.history, "loss", os.path.join(self.config.training_graphs_dir, Path(
+            self.prepare_base_model_config.params_pre_trained_model + "_loss_" + self.config.experiment_case)), "Training and Validation Loss")
+        self.plot_training_history(self.history, "precision", os.path.join(self.config.training_graphs_dir, Path(
+            self.prepare_base_model_config.params_pre_trained_model + "_precision_" + self.config.experiment_case)), "Training and Validation Precision")
+        self.plot_training_history(self.history, "recall", os.path.join(self.config.training_graphs_dir, Path(
+            self.prepare_base_model_config.params_pre_trained_model + "_recall_" + self.config.experiment_case)), "Training and Validation Recall")
+        self.plot_training_history(self.history, "auc", os.path.join(self.config.training_graphs_dir, Path(
+            self.prepare_base_model_config.params_pre_trained_model + "_auc_" + self.config.experiment_case)), "Training and Validation AUC Score")
 
         self.save_model(
-            path=os.path.join(self.config.trained_model_path, Path(self.prepare_base_model_config.params_pre_trained_model)),
+            path=os.path.join(self.config.trained_model_dir, Path(
+                self.prepare_base_model_config.params_pre_trained_model + "_" + self.config.experiment_case + ".keras")),
             model=self.model
         )
 
@@ -95,7 +96,8 @@ class Training:
         plt.clf()
         plt.plot(history.history[title])
         plt.plot(history.history["val_" + title])
-        plt.title(graph_title+" "+"("+self.prepare_base_model_config.params_pre_trained_model+")")
+        plt.title(
+            graph_title+" "+"("+self.prepare_base_model_config.params_pre_trained_model+")")
         plt.xlabel("epochs")
         plt.ylabel(title)
         plt.legend([title, "val_" + title])
@@ -108,4 +110,6 @@ class Training:
                   "precision": self.history.history['precision'][self.config.params_epochs-1],
                   "recall": self.history.history['recall'][self.config.params_epochs-1],
                   "auc": self.history.history['auc'][self.config.params_epochs-1]}
-        save_json(path=Path("training_scores.json"), data=scores)
+        save_json(
+            path=Path(self.config.training_scores_dir,
+                      f"training_scores_{self.config.experiment_case}.json"), data=scores)

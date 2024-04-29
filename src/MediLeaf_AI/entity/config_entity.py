@@ -20,6 +20,7 @@ class PrepareBaseModelConfig:
     params_include_top: bool
     params_weights: str
     params_classes: int
+    optimizer: str
 
 @dataclass(frozen=True)
 class PrepareCallbacksConfig:
@@ -38,20 +39,24 @@ class TrainingConfig:
     root_dir: Path
     trained_model_dir: Path
     training_graphs_dir: Path
-    trained_model_path: Path
+    training_scores_dir: Path
     updated_base_model_path: Path
-    training_graphs_path: Path
     training_data: Path
+    validation_data: Path
     params_epochs: int
     params_batch_size: int
     params_is_augmentation: bool
     params_image_size: list
+    experiment_case: str
 
 @dataclass(frozen=True)
 class EvaluationConfig:
+    root_dir: Path
     path_of_model: Path
-    training_data: Path
+    test_data: Path
     all_params: dict
     evaluation_metrics_dir: Path
     params_image_size: list
     params_batch_size: int
+    testing_cm_dir: Path
+    testing_scores_dir: Path

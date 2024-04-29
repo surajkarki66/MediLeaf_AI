@@ -26,6 +26,7 @@ stages:
       - PATIENCE
       - MODE
       - RESTORE_BEST_WEIGHTS
+      - OPTIMIZER
     outs:
       - artifacts/prepare_base_model
 
@@ -44,13 +45,14 @@ stages:
       - BATCH_SIZE
       - AUGMENTATION
       - PRE_TRAINED_MODEL
+      - EXPERIMENT_CASE
 
     metrics:
-      - training_scores.json:
+      - artifacts/training/scores/training_scores_ABC.json:   # Need to change for every case.
           cache: false
 
     outs:
-      - artifacts/training/models/MobileNetV2
+      - artifacts/training/models/mobilenet_ABC.keras     # Need to change for every case.
 
 
   evaluation:
@@ -59,12 +61,13 @@ stages:
       - src/MediLeaf_AI/pipeline/stage_04_evaluation.py
       - config/config.yaml
       - artifacts/data_ingestion/dataset_v2
-      - artifacts/training/models/MobileNetV2
+      - artifacts/training/models/mobilenet_ABC.keras    # Need to change for every case.
     params:
       - IMAGE_SIZE
       - BATCH_SIZE
       - PRE_TRAINED_MODEL
+      - EXPERIMENT_CASE
 
     metrics:
-    - evaluation_scores.json:
+    - artifacts/testing/scores/evaluation_scores_ABC.json:   # Need to change for every case.
         cache: false
