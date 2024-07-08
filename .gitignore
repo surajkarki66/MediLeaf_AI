@@ -164,3 +164,4 @@ artifacts/prepare_base_model/*
 artifacts/prepare_callbacks/*
 
 research/models/*
+research/data/*
