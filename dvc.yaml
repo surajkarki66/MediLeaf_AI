@@ -52,7 +52,7 @@ stages:
           cache: false
 
     outs:
-      - artifacts/training/models/mobilenetv3.keras     # Need to change for every case.
+      - artifacts/training/models/mobilenet.keras     # Need to change for every case.
 
 
   evaluation:
@@ -61,7 +61,7 @@ stages:
       - src/MediLeaf_AI/pipeline/stage_04_evaluation.py
       - config/config.yaml
       - artifacts/data_ingestion/dataset_v2
-      - artifacts/training/models/mobilenetv3.keras    # Need to change for every case.
+      - artifacts/training/models/mobilenet.keras    # Need to change for every case.
     params:
       - IMAGE_SIZE
       - BATCH_SIZE

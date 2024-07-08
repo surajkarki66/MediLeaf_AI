@@ -1,5 +1,5 @@
 AUGMENTATION: True                # Whether want to to augment the data or not
-PRE_TRAINED_MODEL: mobilenetv3      # Valid options = [mobilenet, mobilenetv2, mobilenetv3, nasnetmobile, inceptionv3]
+PRE_TRAINED_MODEL: mobilenet      # Valid options = [mobilenet, mobilenetv2, nasnetmobile, inceptionv3]
 IMAGE_SIZE: [224, 224, 3]         # Input image size taken by models: [height, width, channels]
 BATCH_SIZE: 32                    # Batch size for training
 INCLUDE_TOP: False
