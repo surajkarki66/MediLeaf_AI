@@ -48,11 +48,11 @@ stages:
       - EXPERIMENT_CASE
 
     metrics:
-      - artifacts/training/scores/training_scores_ABC.json:   # Need to change for every case.
+      - artifacts/training/scores/training_scores.json:   # Need to change for every case.
           cache: false
 
     outs:
-      - artifacts/training/models/mobilenet_ABC.keras     # Need to change for every case.
+      - artifacts/training/models/nasnetmobile.keras     # Need to change for every case.
 
 
   evaluation:
@@ -61,7 +61,7 @@ stages:
       - src/MediLeaf_AI/pipeline/stage_04_evaluation.py
       - config/config.yaml
       - artifacts/data_ingestion/dataset_v2
-      - artifacts/training/models/mobilenet_ABC.keras    # Need to change for every case.
+      - artifacts/training/models/nasnetmobile.keras    # Need to change for every case.
     params:
       - IMAGE_SIZE
       - BATCH_SIZE
@@ -69,5 +69,5 @@ stages:
       - EXPERIMENT_CASE
 
     metrics:
-    - artifacts/testing/scores/evaluation_scores_ABC.json:   # Need to change for every case.
+    - artifacts/testing/scores/evaluation_scores.json:   # Need to change for every case.
         cache: false

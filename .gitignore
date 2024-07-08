@@ -163,4 +163,4 @@ artifacts/data_ingestion/*
 artifacts/prepare_base_model/*
 artifacts/prepare_callbacks/*
 
-.vercel
+research/models/*
