@@ -7,7 +7,6 @@ stages:
     outs:
       - artifacts/data_ingestion/dataset_v2
 
-
   prepare_base_model:
     cmd: python src/MediLeaf_AI/pipeline/stage_02_prepare_base_model.py
     deps:
@@ -30,7 +29,6 @@ stages:
     outs:
       - artifacts/prepare_base_model
 
-
   training:
     cmd: python src/MediLeaf_AI/pipeline/stage_03_training.py
     deps:
@@ -45,15 +43,14 @@ stages:
       - BATCH_SIZE
       - AUGMENTATION
       - PRE_TRAINED_MODEL
-      - EXPERIMENT_CASE
+
 
     metrics:
-      - artifacts/training/scores/training_scores.json:   # Need to change for every case.
+      - artifacts/training/scores/training_scores.json:
           cache: false
 
     outs:
-      - artifacts/training/models/nasnetmobile.keras     # Need to change for every case.
-
+      - artifacts/training/models/nasnetmobile.keras
 
   evaluation:
     cmd: python src/MediLeaf_AI/pipeline/stage_04_evaluation.py
@@ -61,13 +58,12 @@ stages:
       - src/MediLeaf_AI/pipeline/stage_04_evaluation.py
       - config/config.yaml
       - artifacts/data_ingestion/dataset_v2
-      - artifacts/training/models/nasnetmobile.keras    # Need to change for every case.
+      - artifacts/training/models/nasnetmobile.keras
     params:
       - IMAGE_SIZE
       - BATCH_SIZE
       - PRE_TRAINED_MODEL
-      - EXPERIMENT_CASE
 
     metrics:
-    - artifacts/testing/scores/evaluation_scores.json:   # Need to change for every case.
-        cache: false
+      - artifacts/testing/scores/evaluation_scores.json:
+          cache: false

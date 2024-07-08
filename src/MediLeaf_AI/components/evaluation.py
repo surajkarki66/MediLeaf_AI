@@ -42,7 +42,7 @@ class Evaluation:
 
     def evaluation(self):
         model = self.load_model(os.path.join(self.training_config.trained_model_dir, Path(
-            self.prepare_base_model_config.params_pre_trained_model + "_" + self.training_config.experiment_case + ".keras")))
+            self.prepare_base_model_config.params_pre_trained_model + ".keras")))
         self._valid_generator()
         self.score = model.evaluate(self.valid_generator)
         self.predictions = model.predict(self.valid_generator)
@@ -58,7 +58,7 @@ class Evaluation:
                   "precision": self.score[3], "recall": self.score[4],
                   "auc": self.score[5]}
         save_json(path=Path(self.config.testing_scores_dir,
-                  f"evaluation_scores_{self.training_config.experiment_case}.json"), data=scores)
+                  f"evaluation_scores.json"), data=scores)
 
     def plot_confusion_matrix(self):
         plt.clf()
@@ -73,4 +73,4 @@ class Evaluation:
         plt.yticks(rotation=0)
         plt.tight_layout()
         plt.savefig(os.path.join(self.config.evaluation_metrics_dir, Path(
-            self.prepare_base_model_config.params_pre_trained_model + f"_{self.training_config.experiment_case}")))
+            self.prepare_base_model_config.params_pre_trained_model)))

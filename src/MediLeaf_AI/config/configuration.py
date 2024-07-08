@@ -103,7 +103,6 @@ class ConfigurationManager:
             params_batch_size=params.BATCH_SIZE,
             params_is_augmentation=params.AUGMENTATION,
             params_image_size=params.IMAGE_SIZE,
-            experiment_case=params.EXPERIMENT_CASE
         )
 
         return training_config

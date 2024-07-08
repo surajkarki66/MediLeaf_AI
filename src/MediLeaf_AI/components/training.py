@@ -74,21 +74,21 @@ class Training:
         )
 
         self.plot_training_history(self.history, "top1_accuracy", os.path.join(self.config.training_graphs_dir, Path(
-            self.prepare_base_model_config.params_pre_trained_model + "_top1_accuracy_" + self.config.experiment_case)), "Training and Validation Top-1 Accuracy")
+            self.prepare_base_model_config.params_pre_trained_model + "_top1_accuracy")), "Training and Validation Top-1 Accuracy")
         self.plot_training_history(self.history, "top5_accuracy", os.path.join(self.config.training_graphs_dir, Path(
-            self.prepare_base_model_config.params_pre_trained_model + "_top5_accuracy_" + self.config.experiment_case)), "Training and Validation Top-5 Accuracy")
+            self.prepare_base_model_config.params_pre_trained_model + "_top5_accuracy")), "Training and Validation Top-5 Accuracy")
         self.plot_training_history(self.history, "loss", os.path.join(self.config.training_graphs_dir, Path(
-            self.prepare_base_model_config.params_pre_trained_model + "_loss_" + self.config.experiment_case)), "Training and Validation Loss")
+            self.prepare_base_model_config.params_pre_trained_model + "_loss")), "Training and Validation Loss")
         self.plot_training_history(self.history, "precision", os.path.join(self.config.training_graphs_dir, Path(
-            self.prepare_base_model_config.params_pre_trained_model + "_precision_" + self.config.experiment_case)), "Training and Validation Precision")
+            self.prepare_base_model_config.params_pre_trained_model + "_precision")), "Training and Validation Precision")
         self.plot_training_history(self.history, "recall", os.path.join(self.config.training_graphs_dir, Path(
-            self.prepare_base_model_config.params_pre_trained_model + "_recall_" + self.config.experiment_case)), "Training and Validation Recall")
+            self.prepare_base_model_config.params_pre_trained_model + "_recall")), "Training and Validation Recall")
         self.plot_training_history(self.history, "auc", os.path.join(self.config.training_graphs_dir, Path(
-            self.prepare_base_model_config.params_pre_trained_model + "_auc_" + self.config.experiment_case)), "Training and Validation AUC Score")
+            self.prepare_base_model_config.params_pre_trained_model + "_auc")), "Training and Validation AUC Score")
 
         self.save_model(
             path=os.path.join(self.config.trained_model_dir, Path(
-                self.prepare_base_model_config.params_pre_trained_model + "_" + self.config.experiment_case + ".keras")),
+                self.prepare_base_model_config.params_pre_trained_model + ".keras")),
             model=self.model
         )
 
@@ -112,4 +112,4 @@ class Training:
                   "auc": self.history.history['auc'][self.config.params_epochs-1]}
         save_json(
             path=Path(self.config.training_scores_dir,
-                      f"training_scores_{self.config.experiment_case}.json"), data=scores)
+                      f"training_scores.json"), data=scores)

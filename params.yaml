@@ -13,4 +13,3 @@ PATIENCE: 20
 MODE: auto
 RESTORE_BEST_WEIGHTS: False
 OPTIMIZER: adam                      # Valid options = [adam, sgd, rmsprop, adagrad], Optimizer to be used for training
-EXPERIMENT_CASE: no_exp              # Set different model combination
