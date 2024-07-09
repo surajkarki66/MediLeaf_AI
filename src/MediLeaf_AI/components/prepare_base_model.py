@@ -44,8 +44,8 @@ class PrepareBaseModel:
                 include_top=self.config.params_include_top
             )
             
-        elif self.config.params_pre_trained_model == 'resnet50':
-            self.model = tf.keras.applications.ResNet50(
+        elif self.config.params_pre_trained_model == 'densenet201':
+            self.model = tf.keras.applications.DenseNet201(
                 input_shape=self.config.params_image_size,
                 weights=self.config.params_weights,
                 include_top=self.config.params_include_top
