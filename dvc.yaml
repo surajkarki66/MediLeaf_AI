@@ -50,7 +50,7 @@ stages:
           cache: false
 
     outs:
-      - artifacts/training/models/inceptionv3.keras
+      - artifacts/training/models/resnet50.keras
 
   evaluation:
     cmd: python src/MediLeaf_AI/pipeline/stage_04_evaluation.py
@@ -58,7 +58,7 @@ stages:
       - src/MediLeaf_AI/pipeline/stage_04_evaluation.py
       - config/config.yaml
       - artifacts/data_ingestion/dataset_v2
-      - artifacts/training/models/inceptionv3.keras
+      - artifacts/training/models/resnet50.keras
     params:
       - IMAGE_SIZE
       - BATCH_SIZE
